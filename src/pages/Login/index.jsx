@@ -104,7 +104,7 @@ const Login = () => {
 					err={!access.email}
 					id="email"
 					className={`auth__input`}
-					defaultValue={login?.checked ? login?.username : ""}
+					value={login?.checked ? login?.username : ""}
 					onBlur={(e) => {
 						getUserData(e, userData, setUserData);
 						setAccess({ email: true, password: access.email });
@@ -125,7 +125,9 @@ const Login = () => {
 					<Checkbox id="remember" ref={checkRef} className="auth__remember">
 						Remember me
 					</Checkbox>
-					<Link to="/forgot-pass/send-key" className="auth__link">Forgot</Link>
+					<Link to="/forgot-pass/send-key" className="auth__link">
+						Forgot
+					</Link>
 				</div>
 				<Button onClick={loginHandler} type="primary" className="auth__button">
 					<p>Login</p>

@@ -87,9 +87,13 @@ const MyProperties = () => {
 							<>
 								<div className="my-properties__titles">
 									<h2 className="my-properties__subtitle">Listing Title</h2>
-									<h2 className="my-properties__subtitle">Category</h2>
-									<h2 className="my-properties__subtitle">Rooms</h2>
-									<h2 className="my-properties__subtitle">Action</h2>
+									<h2 className="my-properties__subtitle my-properties__subtitle_no-tablet">
+										Category
+									</h2>
+									<h2 className="my-properties__subtitle my-properties__subtitle_no-tablet">Rooms</h2>
+									<h2 className="my-properties__subtitle my-properties__subtitle_no-mobile">
+										Action
+									</h2>
 								</div>
 								<div className="my-properties__list">
 									{houses.map((house) => {

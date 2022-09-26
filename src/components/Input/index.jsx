@@ -4,7 +4,7 @@ import { InputStyle } from "./style";
 
 const Input = (props) => {
 	const [correctToSlide, setCorrectToSlide] = useState(false);
-	const [inputValue, setInputValue] = useState("");
+	const [inputValue, setInputValue] = useState(props.value || "");
 	const inputRef = useRef();
 
 	useEffect(() => {
@@ -17,17 +17,19 @@ const Input = (props) => {
 		});
 	}, [props]);
 
-	const slideUpPlaceholder = (e) => {
+	const slideUpPlaceholder = useCallback((e) => {
 		if (e.target.value) {
 			setCorrectToSlide(true);
 		} else {
 			setCorrectToSlide(false);
 		}
-	};
+	}, []);
 
 	const changeHandler = useCallback(
 		(e) => {
 			e.preventDefault();
+
+			console.log("render");
 
 			slideUpPlaceholder(e);
 			setInputValue(e.target.value);
@@ -50,7 +52,7 @@ const Input = (props) => {
 				inputRef?.current?.classList.remove("input__field_err");
 			}
 		}
-	}, [setCorrectToSlide, changeHandler]);
+	}, [setCorrectToSlide, changeHandler, inputValue]);
 
 	return (
 		<InputStyle textArea={props?.textArea} className={`${props?.className} input${correctToSlide ? " focus" : ""}`}>

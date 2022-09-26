@@ -24,7 +24,6 @@ export const MyPropertiesStyle = styled.main`
 
 	.my-properties__title {
 		font-weight: 600;
-
 		font-size: ${rem(28)};
 		margin: 0 0 ${em(32, 28)} 0;
 		line-height: 129%;
@@ -58,6 +57,22 @@ export const MyPropertiesStyle = styled.main`
 		}
 		&:last-child {
 			text-align: right;
+		}
+	}
+
+	@media only screen and (max-width: ${em(767.98)}) {
+		.my-properties__wrapper {
+			padding: 24px 16px;
+		}
+		.my-properties__subtitle_no-tablet,
+		.card__info {
+			display: none;
+		}
+	}
+
+	@media only screen and (max-width: ${em(424.98)}) {
+		.my-properties__subtitle_no-mobile {
+			display: none;
 		}
 	}
 `;

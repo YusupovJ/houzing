@@ -1,6 +1,9 @@
-import React, { memo, useState, useRef } from "react";
+import React, { memo, useState, useRef, useCallback, useEffect } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { HeaderStyle } from "./style";
+import { navbar } from "../../helpers/utils/navbar";
+import Button from "../Button";
+import UserInfo from "./UserInfo";
 
 /*------------------------------------*/
 
@@ -8,10 +11,6 @@ import { ReactComponent as Login } from "../../assets/svg/login.svg";
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg";
 
 /*------------------------------------*/
-
-import { navbar } from "../../helpers/utils/navbar";
-import Button from "../Button";
-import UserInfo from "./UserInfo";
 
 const URL = process.env.REACT_APP_PUBLIC_URL;
 
@@ -53,15 +52,24 @@ const Header = () => {
 
 	/*------------------------------------*/
 
-	const togglePopover = (e) => {
-		if (e.target.closest(".user-info__button")) {
-			setPopover(!popover);
-		} else if (!e.target.closest(".user-info__button")) {
-			setPopover(false);
-		}
-	};
+	const togglePopover = useCallback(
+		(e) => {
+			if (e.target.closest(".user-info__button")) {
+				setPopover(!popover);
+			} else if (!e.target.closest(".user-info") || e.target.className === "user-info__link") {
+				setPopover(false);
+			}
+		},
+		[popover]
+	);
 
-	document.body.addEventListener("click", togglePopover);
+	useEffect(() => {
+		document.body.addEventListener("click", togglePopover);
+
+		return () => {
+			document.body.removeEventListener("click", togglePopover);
+		};
+	}, [togglePopover]);
 
 	/*------------------------------------*/
 
@@ -82,7 +90,7 @@ const Header = () => {
 			JSON.stringify({
 				username: userInfo?.username,
 				checked: userInfo?.checked || false,
-			}),
+			})
 		);
 
 		window.location.href = location.pathname;
@@ -92,7 +100,7 @@ const Header = () => {
 		<HeaderStyle ref={header} className="header">
 			<div className="header__container">
 				<Link onClick={closeBurgerOnRedirect} to="/" className="header__logo">
-					<Logo/>
+					<Logo />
 					<p>Houzing</p>
 				</Link>
 				<nav className={`header__navigator ${burger === true ? "toggled" : "unToggled"}`}>
@@ -121,11 +129,11 @@ const Header = () => {
 				{/* Если пользователь вошел в аккаунт, то показываем его информацию, иначе кнопку Login */}
 
 				{userInfo?.authenticationToken ? (
-					<UserInfo setPopover={setPopover} popover={popover} logout={logout}/>
+					<UserInfo logout={logout} popover={popover} />
 				) : (
 					<Button onClick={() => navigate("/login")} className="header__login">
 						<p>Login</p>
-						<Login className="header__login-icon"/>
+						<Login className="header__login-icon" />
 					</Button>
 				)}
 			</div>

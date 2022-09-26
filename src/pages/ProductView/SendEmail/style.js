@@ -65,7 +65,7 @@ export const SendEmailStyle = styled.div`
 		line-height: 150%;
 		color: #0d263b;
 	}
-	
+
 	.email__input {
 		margin: 0 0 30px 0;
 		&_to {
@@ -75,11 +75,11 @@ export const SendEmailStyle = styled.div`
 			transform: translate(-100%, -100%);
 		}
 	}
-	
+
 	.email__button {
 		width: 100%;
 	}
-	
+
 	.email__close-modal-window {
 		width: 30px;
 		cursor: pointer;
@@ -90,11 +90,11 @@ export const SendEmailStyle = styled.div`
 		right: 6px;
 		stroke: #0d263b;
 	}
-	
+
 	@media only screen and (max-width: ${em(991.98)}) {
 		${mobileModalWindow};
 	}
-	
+
 	@media only screen and (max-height: ${em(454.98)}) {
 		${mobileModalWindow}
 	}
@@ -123,11 +123,11 @@ export const OpenModalWindow = styled.button`
 	&:active {
 		transform: scale(0.95);
 	}
-	
+
 	@media only screen and (min-width: ${em(991.98)}) {
 		display: none;
 	}
-	
+
 	@media only screen and (max-height: ${em(454.98)}) {
 		display: block;
 	}

@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { UserInfoStyle } from "./style";
 
 import { ReactComponent as Arrow } from "../../../assets/svg/arrow.svg";
 import { ReactComponent as Logout } from "../../../assets/svg/logout.svg";
 import { ReactComponent as User } from "../../../assets/svg/user.svg";
+import ConfirmLogout from "../ConfirmLogout";
+import { bodyToggle } from "../../../helpers/functions/functions";
 
 /* Дополнительная информация о пользователе */
 
 const UserInfo = ({ popover, logout }) => {
+	const [modalWindow, setModalWindow] = useState(false);
 	const [userData, setUserData] = useState({
 		authorities: [{ name: null }],
 	});
@@ -25,6 +28,14 @@ const UserInfo = ({ popover, logout }) => {
 			setUserData(res || {});
 		});
 	}, [token]);
+
+	const confirmLogout = () => {
+		setModalWindow(!modalWindow);
+	};
+
+	useEffect(() => {
+		bodyToggle(modalWindow);
+	}, [modalWindow]);
 
 	return (
 		<UserInfoStyle className="header__user-info user-info">
@@ -46,14 +57,15 @@ const UserInfo = ({ popover, logout }) => {
 						Add new property
 					</Link>
 					<hr />
-					<button onClick={logout} className="user-info__logout">
+					<button onClick={confirmLogout} className="user-info__logout">
 						<Logout />
 						<p>Logout</p>
 					</button>
 				</div>
 			</div>
+			{modalWindow && <ConfirmLogout logout={logout} setModalWindow={setModalWindow} />}
 		</UserInfoStyle>
 	);
 };
 
-export default UserInfo;
+export default memo(UserInfo);

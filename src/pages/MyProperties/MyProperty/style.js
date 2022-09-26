@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { rem } from "../../../helpers/functions/functions";
+import { em, rem } from "../../../helpers/functions/functions";
 
 export const MyPropertyStyle = styled.div`
 	display: flex;
@@ -22,13 +22,14 @@ export const MyPropertyStyle = styled.div`
 
 	.card__image {
 		margin: 0 16px 0 0;
-		flex: 0 0 113px;
-		height: 113px;
 		overflow: hidden;
+		flex: 0 0 113px;
+		max-height: 113px;
 		border-radius: 3px;
 		img {
-			width: 100%;
 			height: 100%;
+			width: 100%;
+			max-width: 113px;
 			object-fit: cover;
 		}
 	}
@@ -37,21 +38,27 @@ export const MyPropertyStyle = styled.div`
 		text-transform: capitalize;
 	}
 
-	.card__prices {
-		margin: 21px 0 0 0;
-	}
-
 	.card__sale-price {
-		font-size: ${rem(14)};
+		font-size: ${rem(12)};
 		line-height: 167%;
 		text-decoration-line: line-through;
 		color: #696969;
 	}
 
+	.card__body {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-start;
+		flex: 1 1 auto;
+		> .card__title {
+			flex: 0 0;
+		}
+	}
+
 	.card__price {
 		font-weight: 600;
 		font-size: 1rem;
-		line-height: 150%;
+		line-height: 100%;
 		color: #0d263b;
 	}
 
@@ -64,6 +71,14 @@ export const MyPropertyStyle = styled.div`
 
 	.card__info {
 		flex: 0 1 20%;
+	}
+
+	.card__body-row {
+		display: flex;
+		margin: 10px 0 0 0;
+		justify-content: space-between;
+		align-items: flex-end;
+		flex: 1 1 auto;
 	}
 
 	.card__button {
@@ -81,6 +96,18 @@ export const MyPropertyStyle = styled.div`
 			svg {
 				background-color: #f6f8f9;
 			}
+		}
+	}
+
+	@media only screen and (max-width: ${em(767.98)}) {
+		.card__prices {
+			margin: 0;
+		}
+	}
+
+	@media only screen and (max-width: ${em(424.98)}) {
+		.card__actions {
+			gap: 20px;
 		}
 	}
 `;

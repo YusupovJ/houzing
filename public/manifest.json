@@ -1,0 +1,15 @@
+{
+    "short_name": "Houzing",
+    "name": "Houzing Application",
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#ffffff",
+    "background_color": "#ffffff",
+    "lang": "en",
+    "icons": [
+        {
+            "src": "/icon512.ico",
+            "sizes": "512x512"
+        }
+    ]
+}

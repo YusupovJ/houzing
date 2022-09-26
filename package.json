@@ -1,0 +1,53 @@
+{
+    "name": "react-template",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@react-google-maps/api": "^2.12.1",
+        "@testing-library/jest-dom": "^5.16.4",
+        "@testing-library/react": "^13.1.1",
+        "@testing-library/user-event": "^13.5.0",
+        "emailjs-com": "^3.2.0",
+        "filestack-js": "^3.25.0",
+        "react": "^18.0.0",
+        "react-dom": "^18.0.0",
+        "react-loading-skeleton": "^3.1.0",
+        "react-router-dom": "^6.3.0",
+        "react-scripts": "5.0.1",
+        "sass": "^1.51.0",
+        "styled-components": "^5.3.5",
+        "swiper": "^8.2.3"
+    },
+    "scripts": {
+        "start": "concurrently \"react-scripts start\" \"gulp\"",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "concurrently": "^7.2.2",
+        "del": "^6.0.0",
+        "gulp": "^4.0.2",
+        "gulp-cli": "^2.3.0",
+        "gulp-fonter": "^0.3.0",
+        "gulp-ttf2woff2": "^4.0.1"
+    }
+}

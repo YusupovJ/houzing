@@ -1,0 +1,18 @@
+@font-face {
+	font-family: Cerebri Sans;
+	font-display: swap;
+	src: url("../fonts/Cerebri Sans-SemiBold.woff2") format("woff2"),
+		url("../fonts/Cerebri Sans-SemiBold.woff") format("woff"),
+		url("../fonts/Cerebri Sans-SemiBold.ttf") format("ttf");
+	font-weight: 600;
+	font-style: normal;
+}
+@font-face {
+	font-family: SF Pro Display;
+	font-display: swap;
+	src: url("../fonts/SF Pro Display-Medium.woff2") format("woff2"),
+		url("../fonts/SF Pro Display-Medium.woff") format("woff"),
+		url("../fonts/SF Pro Display-Medium.ttf") format("ttf");
+	font-weight: 500;
+	font-style: normal;
+}

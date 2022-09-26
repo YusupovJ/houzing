@@ -1,0 +1,55 @@
+/* Подключение шрифтов ======================================================================= */
+
+@import url("https://fonts.googleapis.com/css?family=Montserrat:regular,600,700&display=swap");
+
+@font-face {
+	font-family: text-security-disc;
+	src: url("https://raw.githubusercontent.com/noppa/text-security/master/dist/text-security-disc.woff");
+	font-display: swap;
+}
+
+/* Подключение файлом */
+@import "./fonts";
+
+// Шрифт по умолчанию =======================================================================//
+$fontFamily: "Montserrat";
+
+// Настройки ================================================================================//
+$container: 1180;
+$paddingContainer: 16;
+
+/* Обнуление ================================================================================ */
+@import "./null";
+
+/* Тело страницы ============================================================================= */
+
+body {
+	overflow-x: hidden;
+	font-family: $fontFamily;
+	background-color: #fff;
+	&.lock {
+		overflow: hidden;
+		touch-action: none;
+	}
+}
+
+/* Оболочка ================================================================================== */
+#root {
+	margin: 60px 0 0 0;
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	width: 100%;
+}
+
+/* Прижатие футера к низу */
+main {
+	flex: 1 1 auto;
+}
+
+/* Контейнер ================================================================================= */
+[class*="__container"] {
+	max-width: $container + $paddingContainer * 2 + px;
+	margin: 0 auto;
+	padding: 0 $paddingContainer + px;
+}

@@ -131,6 +131,8 @@ const Register = () => {
 		}
 	};
 
+	console.log(!access.reEnterPassword);
+
 	return (
 		<ToBegin>
 			<Auth title="Registration">

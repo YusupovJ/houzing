@@ -8,49 +8,51 @@ const Input = (props) => {
 	const inputRef = useRef();
 
 	useEffect(() => {
-		new Promise((resolve) => {
-			if (props.status) {
-				resolve();
-			}
-		}).then(() => {
-			setInputValue(props.value || "");
-		});
-	}, [props]);
+		setInputValue(props.value || "");
+	}, [props.value]);
 
 	const slideUpPlaceholder = useCallback((e) => {
 		if (e.target.value) {
-			setCorrectToSlide(true);
-		} else {
-			setCorrectToSlide(false);
+			return setCorrectToSlide(true);
 		}
+
+		setCorrectToSlide(false);
 	}, []);
+
+	const setLimit = useCallback(
+		(e) => {
+			if (+e.target.value < props.min || +e.target.value > props.max) {
+				e.target.classList.add("input__field_err");
+			} else {
+				e.target.classList.remove("input__field_err");
+			}
+		},
+		[props.max, props.min]
+	);
 
 	const changeHandler = useCallback(
 		(e) => {
 			e.preventDefault();
 
-			console.log("render");
-
 			slideUpPlaceholder(e);
 			setInputValue(e.target.value);
+			e.target.classList.remove("input__field_err");
+
+			if (props.max || props.min) {
+				setLimit(e);
+			}
 
 			if (props?.onChange) {
 				props?.onChange(e);
 			}
 		},
-		[props, slideUpPlaceholder]
+		[props, slideUpPlaceholder, setLimit]
 	);
 
-	// Поднимаем вверх label и убираем ошибки, если есть внутри данные
+	// Поднимаем вверх label, если есть внутри данные
 	useEffect(() => {
 		if (inputValue) {
 			setCorrectToSlide(true);
-
-			// Если у инпута нет id "email", тогда убираем, а то когда юзер введет неправильно email,
-			// тогда красная линия не появится, потому что в инпуте есть данные
-			if (inputRef?.current?.id !== "email" && inputRef?.current?.id !== "password") {
-				inputRef?.current?.classList.remove("input__field_err");
-			}
 		}
 	}, [setCorrectToSlide, changeHandler, inputValue]);
 

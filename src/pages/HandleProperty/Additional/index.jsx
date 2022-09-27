@@ -16,6 +16,8 @@ const Additional = (props) => {
 						}
 						type="number"
 						required
+						min={additional?.min}
+						max={additional?.max}
 						value={props.defaultAdditional[additional.id]}
 						status={props.status}
 						placeholder={additional.placeholder}

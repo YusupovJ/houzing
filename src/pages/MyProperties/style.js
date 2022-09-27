@@ -74,5 +74,12 @@ export const MyPropertiesStyle = styled.main`
 		.my-properties__subtitle_no-mobile {
 			display: none;
 		}
+		.my-properties__search {
+			flex: 1 1 100%;
+			margin: 0px 0px 20px 0px;
+		}
+		.my-properties__title {
+			margin: 0px 0px 20px 0px;
+		}
 	}
 `;

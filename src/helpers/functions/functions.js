@@ -162,9 +162,9 @@ export const getProperty = (id, setState) => {
 
 // Проверяем, заполнил ли пользователь все поля
 const checkInputs = () => {
-	const inputs = [...document.querySelectorAll("[required]")];
+	const inputs = [...document.querySelectorAll("[required],.input__field_err")];
 	// Получаем не заполненные поля ввода
-	const notFilled = inputs.filter((input) => !input.value);
+	const notFilled = inputs.filter((input) => !input.value || input.classList.contains("input__field_err"));
 
 	// Если такие есть, то добавляем им класс
 	if (notFilled.length) {

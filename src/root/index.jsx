@@ -15,6 +15,7 @@ import EnterEmail from "../pages/ForgotPass/EnterEmail";
 import Verificate from "../pages/ForgotPass/Verificate";
 import ResetPass from "../pages/ForgotPass/ResetPass";
 import MyProperties from "../pages/MyProperties";
+import ContactUs from "../pages/ContactUs";
 
 const Root = () => {
 	const { alerts } = useContext(Global) || [];
@@ -42,6 +43,7 @@ const Root = () => {
 				<Route path="/forgot-pass/verificate" element={<Verificate />} />
 				<Route path="/forgot-pass/reset-pass" element={<ResetPass />} />
 				<Route path="/my-properties" element={<MyProperties />} />
+				<Route path="/contact" element={<ContactUs />} />
 				<Route path="*" element={<NotFound />} />
 			</Routes>
 			<Footer />

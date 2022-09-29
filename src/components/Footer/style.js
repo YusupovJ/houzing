@@ -31,7 +31,12 @@ export const FooterStyle = styled.footer`
 	.footer__text {
 		margin: 0 0 20px 0;
 		display: flex;
-		p {
+		color: #ffffff;
+		a {
+			cursor: pointer;
+		}
+		p,
+		a {
 			font-weight: 400;
 			font-size: ${rem(14)};
 			line-height: 143%;

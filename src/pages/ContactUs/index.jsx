@@ -21,7 +21,7 @@ const ContactUs = () => {
 					</Title>
 					<Info />
 					<Map center={pos} latLng={pos} zoom={17} />
-					<SendEmail />
+					<SendEmail user="jamshudanamana@gmail.com" />
 				</div>
 			</ContactUsStyle>
 		</ToBegin>

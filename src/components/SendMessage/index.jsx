@@ -29,7 +29,6 @@ const SendMessage = ({ user }) => {
 	const changeEmailData = (e) => {
 		setEmailData({
 			...emailData,
-			send_to: user?.email,
 			[e.target.id]: e.target.value,
 		});
 	};
@@ -70,7 +69,7 @@ const SendMessage = ({ user }) => {
 						service_id: SERVICE_ID,
 						template_id: TEMPLATE_ID,
 						user_id: PUBLIC_ID,
-						template_params: emailData,
+						template_params: { ...emailData, send_to: user },
 					}),
 				});
 

@@ -12,13 +12,14 @@ import ProductView from "../pages/ProductView";
 import HandleProperty from "../pages/HandleProperty";
 import Alert from "../components/Alert";
 import EnterEmail from "../pages/ForgotPass/EnterEmail";
-import Verificate from "../pages/ForgotPass/Verificate";
+import Verificate from "../components/Verificate";
 import ResetPass from "../pages/ForgotPass/ResetPass";
 import MyProperties from "../pages/MyProperties";
 import ContactUs from "../pages/ContactUs";
 
 const Root = () => {
 	const { alerts } = useContext(Global) || [];
+	const { resetPass, registerVerif } = useContext(Global);
 
 	// Очищаем массив сплывающих окон спустя 2 секунды
 	const clearAlertList = (array) => {
@@ -40,7 +41,14 @@ const Root = () => {
 				<Route path="/add-property" element={<HandleProperty add />} />
 				<Route path="/change-property/:id" element={<HandleProperty change />} />
 				<Route path="/forgot-pass/send-key" element={<EnterEmail />} />
-				<Route path="/forgot-pass/verificate" element={<Verificate />} />
+				<Route
+					path="/forgot-pass/verificate"
+					element={<Verificate access={resetPass} action={resetPass.navigate} />}
+				/>
+				<Route
+					path="/register/verificate"
+					element={<Verificate access={registerVerif} action={registerVerif.registerHandler} />}
+				/>
 				<Route path="/forgot-pass/reset-pass" element={<ResetPass />} />
 				<Route path="/my-properties" element={<MyProperties />} />
 				<Route path="/contact" element={<ContactUs />} />

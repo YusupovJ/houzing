@@ -65,7 +65,13 @@ const EnterEmail = () => {
 					throw new Error(`Erorr ${request.status}: ${request.statusText}`);
 				} else {
 					const token = await getToken();
-					setResetPass({ key, token });
+					setResetPass({
+						key,
+						token,
+						navigate() {
+							navigate("/forgot-pass/reset-pass");
+						},
+					});
 					setStatus(false);
 					navigate(`/forgot-pass/verificate`);
 				}
@@ -82,7 +88,7 @@ const EnterEmail = () => {
 			<Auth title="Write your email">
 				<p className="auth__info">Enter the email you want to recover</p>
 				<Input
-					onChange={e => setEmail(e.target.value)}
+					onChange={(e) => setEmail(e.target.value)}
 					type="email"
 					value={email}
 					placeholder="Email"

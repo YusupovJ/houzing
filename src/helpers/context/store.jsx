@@ -8,8 +8,15 @@ const GlobalContext = (props) => {
 		token: "",
 		key: "",
 	});
+	const [registerVerif, setRegisterVerif] = useState({
+		key: "",
+	});
 
-	return <Global.Provider value={{ alerts, setAlerts, resetPass, setResetPass }}>{props.children}</Global.Provider>;
+	return (
+		<Global.Provider value={{ alerts, setAlerts, resetPass, setResetPass, registerVerif, setRegisterVerif }}>
+			{props.children}
+		</Global.Provider>
+	);
 };
 
 export default GlobalContext;

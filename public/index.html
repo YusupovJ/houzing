@@ -1,92 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<title>Houzing</title>
-	<link rel="manifest" href="manifest.json" />
-	<link rel="icon" href="logo.ico" />
-	<style>
-		.loader {
-			position: absolute;
-			top: 0;
-			left: 0;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			height: 100%;
-			width: 100%;
-			overflow: hidden;
-		}
-		
-		.loader div {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 100px;
-			height: 100px;
-			border-radius: 100%;
-			position: relative;
-			margin: 0 auto;
-		}
-		
-		.loader span {
-			display: inline-block;
-			width: 14px;
-			margin: 0 7px 0 0;
-			border-radius: 2px;
-			height: 60px;
-			background-color: #0d263b;
-			box-shadow: 2px 2px 0 #0d263b;
-		}
-		
-		.loader span:nth-child(1) {
-			animation: grow 0.8s ease-in-out infinite;
-		}
-		
-		.loader span:nth-child(2) {
-			animation: grow 0.8s ease-in-out 0.15s infinite;
-		}
-		
-		.loader span:nth-child(3) {
-			animation: grow 0.8s ease-in-out 0.30s infinite;
-		}
-		
-		.loader span:nth-child(4) {
-			animation: grow 0.8s ease-in-out 0.45s infinite;
-		}
-		
-		.loader span:nth-child(5) {
-			animation: grow 0.8s ease-in-out 0.6s infinite;
-		}
-		
-		@keyframes grow {
-			0%, 100% {
-				transform: scaleY(1);
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Houzing</title>
+		<link rel="manifest" href="manifest.json" />
+		<link rel="icon" href="logo.ico" />
+		<style>
+			.wrapper {
+				width: 100vw;
+				height: 100vh;
+				overflow: hidden;
 			}
-			
-			50% {
-				transform: scaleY(1.8);
+			.loader {
+				position: absolute;
+				top: 0;
+				left: 0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100%;
+				width: 100%;
+				overflow: hidden;
 			}
-		}
-	</style>
-</head>
 
-<body style="margin: 0;background: #ffffff">
+			.loader div {
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				width: 100px;
+				height: 100px;
+				border-radius: 100%;
+				position: relative;
+				margin: 0 auto;
+			}
 
-<noscript>You need to enable JavaScript to run this app.</noscript>
+			.loader span {
+				display: inline-block;
+				width: 14px;
+				margin: 0 7px 0 0;
+				border-radius: 2px;
+				height: 60px;
+				background-color: #0d263b;
+				box-shadow: 2px 2px 0 #0d263b;
+			}
 
-<div id="root">
-	<div class="loader">
-		<div>
-			<span></span> <span></span> <span></span> <span></span> <span></span>
+			.loader span:nth-child(1) {
+				animation: grow 0.8s ease-in-out infinite;
+			}
+
+			.loader span:nth-child(2) {
+				animation: grow 0.8s ease-in-out 0.15s infinite;
+			}
+
+			.loader span:nth-child(3) {
+				animation: grow 0.8s ease-in-out 0.3s infinite;
+			}
+
+			.loader span:nth-child(4) {
+				animation: grow 0.8s ease-in-out 0.45s infinite;
+			}
+
+			.loader span:nth-child(5) {
+				animation: grow 0.8s ease-in-out 0.6s infinite;
+			}
+
+			@keyframes grow {
+				0%,
+				100% {
+					transform: scaleY(1);
+				}
+
+				50% {
+					transform: scaleY(1.8);
+				}
+			}
+		</style>
+	</head>
+
+	<body style="margin: 0; background: #ffffff">
+		<noscript>You need to enable JavaScript to run this app.</noscript>
+
+		<div id="root">
+			<div class="wrapper">
+				<div class="loader">
+					<div><span></span> <span></span> <span></span> <span></span> <span></span></div>
+				</div>
+			</div>
 		</div>
-	</div>
-</div>
 
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrIrn3AqOVoJ1m92MSzBMH3ooiSx-6CRw&amp;libraries=places"></script>
-</body>
-
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBrIrn3AqOVoJ1m92MSzBMH3ooiSx-6CRw&amp;libraries=places"></script>
+	</body>
 </html>
-

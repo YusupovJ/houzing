@@ -27,8 +27,6 @@ const Footer = () => {
 		fetchRequest();
 	}, []);
 
-	console.log(categories);
-
 	return (
 		<FooterStyle className="footer">
 			<div className="footer__container">

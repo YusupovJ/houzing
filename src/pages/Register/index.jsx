@@ -1,16 +1,22 @@
-import React, { memo, useState } from "react";
+import React, { memo, useState, useContext } from "react";
 import { useNavigate } from "react-router";
 import Auth from "../../components/Auth";
 import Button from "../../components/Button";
 import Input from "../../components/Input";
 import ToBegin from "../../components/ToBegin";
+import { Global } from "../../helpers/context/store";
 import { getUserData, useShowAlert } from "../../helpers/functions/functions";
 
 const URL = process.env.REACT_APP_PUBLIC_URL;
+const TEMPLATE_ID = "template_cv0avo8";
+const URL_EMAIL_JS = "https://api.emailjs.com/api/v1.0/email/send";
+const SERVICE_ID = process.env.REACT_APP_SERVICE_ID;
+const PUBLIC_ID = process.env.REACT_APP_PUBLIC_ID;
 
 const Register = () => {
 	const showAlert = useShowAlert();
 	const navigate = useNavigate();
+	const { setRegisterVerif } = useContext(Global);
 
 	const [userData, setUserData] = useState({
 		email: "",
@@ -28,6 +34,11 @@ const Register = () => {
 		password: true,
 		reEnterPassword: true,
 	});
+
+	const generateKey = () => {
+		let key = (Math.random() * 100_000_000).toString().slice(0, 6);
+		return key;
+	};
 
 	/* ------------------------------------ */
 
@@ -87,38 +98,65 @@ const Register = () => {
 	};
 
 	const registerHandler = async () => {
-		if (validate().status) {
-			const body = Object.assign({}, userData);
-			delete body.reEnterPassword;
+		const body = Object.assign({}, userData);
+		delete body.reEnterPassword;
 
+		try {
+			const request = await fetch(`${URL}/public/auth/register`, {
+				method: "POST",
+				headers: {
+					"Content-type": "application/json",
+				},
+				body: JSON.stringify(body),
+			});
+
+			if (request.ok) {
+				const response = await request.text();
+				const verification = await accVerification(response);
+
+				if (verification) {
+					const response = await login(body.email, body.password);
+
+					localStorage.setItem("login", JSON.stringify(response));
+					navigate("/");
+					showAlert("success", "You have succecfully registered!");
+				} else {
+					throw new Error("Verification failed!");
+				}
+			} else {
+				const error = await request.json();
+				throw new Error(error.message);
+			}
+		} catch (error) {
+			showAlert("error", error.message);
+		}
+	};
+
+	const sendKey = async () => {
+		if (validate().status) {
+			const key = generateKey();
 			try {
-				const request = await fetch(`${URL}/public/auth/register`, {
+				const request = await fetch(URL_EMAIL_JS, {
 					method: "POST",
 					headers: {
 						"Content-type": "application/json",
 					},
-					body: JSON.stringify(body),
+					body: JSON.stringify({
+						service_id: SERVICE_ID,
+						template_id: TEMPLATE_ID,
+						user_id: PUBLIC_ID,
+						template_params: { email: userData.email, key },
+					}),
 				});
 
-				if (request.ok) {
-					const response = await request.text();
-					const verification = await accVerification(response);
-
-					if (verification) {
-						const response = await login(body.email, body.password);
-
-						localStorage.setItem("login", JSON.stringify(response));
-						navigate("/");
-						showAlert("success", "You have succecfully registered!");
-					} else {
-						throw new Error("Verification failed!");
-					}
+				if (!request.ok) {
+					throw new Error(`Erorr ${request.status}: ${request.statusText}`);
 				} else {
-					const error = await request.json();
-					throw new Error(error.message);
+					setRegisterVerif({ key, registerHandler });
+					navigate("/register/verificate");
 				}
-			} catch (error) {
-				showAlert("error", error.message);
+			} catch (err) {
+				showAlert("error", err.message);
 			}
 		} else {
 			setAccess({
@@ -130,8 +168,6 @@ const Register = () => {
 			});
 		}
 	};
-
-	console.log(!access.reEnterPassword);
 
 	return (
 		<ToBegin>
@@ -191,7 +227,7 @@ const Register = () => {
 						setAccess({ ...access, reEnterPassword: true });
 					}}
 				/>
-				<Button onClick={registerHandler} type="primary" className="auth__button">
+				<Button onClick={sendKey} type="primary" className="auth__button">
 					<p>Register</p>
 				</Button>
 			</Auth>

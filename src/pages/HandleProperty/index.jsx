@@ -84,13 +84,12 @@ const HandleProperty = (props) => {
 			zipCode: houseInfo?.zipCode,
 		};
 	}, [
-		houseInfo?.location.latitude,
-		houseInfo?.location.longitude,
 		houseInfo?.country,
 		houseInfo?.city,
 		houseInfo?.region,
 		houseInfo?.address,
 		houseInfo?.zipCode,
+		houseInfo?.location,
 	]);
 
 	const defaultAttachments = useMemo(() => houseInfo?.attachments, [houseInfo?.attachments]);

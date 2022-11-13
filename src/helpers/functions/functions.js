@@ -147,7 +147,7 @@ export const getProperty = (id, setState) => {
 	const token = JSON.parse(localStorage.getItem("login"))?.authenticationToken;
 	const URL = process.env.REACT_APP_PUBLIC_URL;
 
-	const request = fetch(`${URL}/v1/houses/${id}`, {
+	const request = fetch(`${URL}/v1/houses/id/${id}`, {
 		headers: {
 			Authorization: `Bearer ${token}`,
 		},

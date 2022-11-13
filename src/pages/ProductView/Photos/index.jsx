@@ -11,7 +11,7 @@ const Photos = (props) => {
 	const media992 = useMatchMedia(991.98);
 	const [gallery, setGallery] = useState({ opened: false, index: 0 });
 	const [imgError, setImgError] = useState([]);
-	const [photos, setPhotos] = useState([...props.photos]);
+	const [photos, setPhotos] = useState([...props?.photos]);
 
 	/* ------------------------------------ */
 
@@ -82,9 +82,9 @@ const Photos = (props) => {
 			<PhotosStyle galleryClass="product-view__gallery" photosCount={photos.length}>
 				{photos.slice(0, !media992 ? 3 : 5).map((photo, index, arr) => {
 					/*
-						* Если картинка еще не загружена показываем скелет,
-						* там в ProducrtView, я указал изначальный imgPath как "skeleton"
-					*/
+					 * Если картинка еще не загружена показываем скелет,
+					 * там в ProducrtView, я указал изначальный imgPath как "skeleton"
+					 */
 
 					if (photo.imgPath === "pending") {
 						return <Skeleton key={photo.id} />;
@@ -97,8 +97,7 @@ const Photos = (props) => {
 					return (
 						<div
 							key={photo.id}
-							onClick={!err ? openGallery.bind(null, index, photo.id) : () => {
-							}}
+							onClick={!err ? openGallery.bind(null, index, photo.id) : () => {}}
 							className={`photos__photo ${last} ${big} ${err}`}
 						>
 							<img
@@ -111,8 +110,7 @@ const Photos = (props) => {
 					);
 				})}
 
-				{gallery.opened &&
-					<Gallery index={gallery.index} photos={photos} closeGallery={closeGallery} />}
+				{gallery.opened && <Gallery index={gallery.index} photos={photos} closeGallery={closeGallery} />}
 			</PhotosStyle>
 		);
 	}

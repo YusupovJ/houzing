@@ -25,8 +25,6 @@ const SendEmail = ({ user }) => {
 		bodyToggle(emailVisible);
 	}, [emailVisible]);
 
-	console.log(user);
-
 	return (
 		<>
 			<OpenModalWindow onClick={toggleEmailVisible} className="email__show-form-btn">

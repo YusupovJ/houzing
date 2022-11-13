@@ -64,7 +64,7 @@ const ResetPass = () => {
 		if (!resetPass.token && !resetPass.key) {
 			navigate("/login");
 		}
-	}, []);
+	}, [resetPass.token, resetPass.key, navigate]);
 
 	return (
 		<Auth title="New password">

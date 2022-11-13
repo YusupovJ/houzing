@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import { PropertiesStyle } from "./style";
 import { useLocation } from "react-router-dom";
 import Filter from "../../components/Filter";
@@ -25,12 +25,15 @@ const Properties = () => {
 
 	/* ------------------------------------ */
 
-	const showMore = (data) => {
-		setCards([...cards, ...data.data]);
-		setPage({ current: page.current + 1, max: data.map.total_pages });
-	};
+	const showMore = useCallback(
+		(data) => {
+			setCards([...cards, ...data.data]);
+			setPage({ current: page.current + 1, max: data.map.total_pages });
+		},
+		[cards, page]
+	);
 
-	const getCards = async () => {
+	const getCards = () => {
 		const requestQuery = location.search || `?page=${page.current}&size=15`;
 		const request = fetch(`${URL}/v1/houses/list${requestQuery}`).then((response) => response.json());
 
@@ -51,7 +54,7 @@ const Properties = () => {
 
 	useEffect(() => {
 		getCards();
-	}, [location]);
+	}, []);
 
 	/* ------------------------------------ */
 

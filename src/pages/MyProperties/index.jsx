@@ -7,16 +7,19 @@ import Bullets from "./Bullets";
 import LoadingSkeleton from "./LoadingSkeleton";
 import Search from "./Search";
 import ToBegin from "../../components/ToBegin";
+import properties from "../../helpers/utils/properties.js";
 
 const URL = process.env.REACT_APP_PUBLIC_URL;
 
 const MyProperties = () => {
-	const token = JSON.parse(localStorage.getItem("login")).authenticationToken;
+	// const token = JSON.parse(localStorage.getItem("login")).authenticationToken;
 	const [houses, setHouses] = useState([]);
 	const showAlert = useShowAlert();
 	// Так надо, если не веришь попробуй убрать и пофиксить warning (спойлер, приложение упадет)
 	// eslint-disable-next-line
-	const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search]);
+	const searchParams = useMemo(() => new URLSearchParams(window.location.search), [
+		window.location.search,
+	]);
 	const [searchValue, setSearchValue] = useState("");
 
 	// Типа current = если приходит page из query то отнимаем один, потому что из сервака приходит
@@ -24,53 +27,53 @@ const MyProperties = () => {
 	// а значит показываем первую страницу
 	const [pages, setPages] = useState({ current: (searchParams.get("page") || 1) - 1, max: 0 });
 
-	const deleteProperty = async (id) => {
-		const request = await fetch(`${URL}/v1/houses/${id}`, {
-			method: "DELETE",
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
+	// const deleteProperty = async (id) => {
+	// 	const request = await fetch(`${URL}/v1/houses/${id}`, {
+	// 		method: "DELETE",
+	// 		headers: {
+	// 			Authorization: `Bearer ${token}`,
+	// 		},
+	// 	});
 
-		const response = await request.json();
+	// 	const response = await request.json();
 
-		if (request.ok) {
-			// Если на одной странице оставалась одно свойство, при удалении
-			// переводим на предыдущую страницу
-			if (houses.length === 1 && pages.current !== 1) {
-				setPages((pages) => ({ ...pages, current: pages.current - 1 }));
-			}
+	// 	if (request.ok) {
+	// 		// Если на одной странице оставалась одно свойство, при удалении
+	// 		// переводим на предыдущую страницу
+	// 		if (houses.length === 1 && pages.current !== 1) {
+	// 			setPages((pages) => ({ ...pages, current: pages.current - 1 }));
+	// 		}
 
-			getMyHouses();
-			showAlert("success", response.message);
-		} else {
-			showAlert("error", "Something went wrong");
-		}
-	};
+	// 		getMyHouses();
+	// 		showAlert("success", response.message);
+	// 	} else {
+	// 		showAlert("error", "Something went wrong");
+	// 	}
+	// };
 
-	const getMyHouses = async (current, searchValue) => {
-		const query = `?size=5&page=${current}${searchValue && `&house_name=${searchValue}`}`;
+	// const getMyHouses = async (current, searchValue) => {
+	// 	const query = `?size=5&page=${current}${searchValue && `&house_name=${searchValue}`}`;
 
-		const request = await fetch(`${URL}/v1/houses/me${query}`, {
-			method: "GET",
-			headers: {
-				Authorization: `Bearer ${token}`,
-			},
-		});
+	// 	const request = await fetch(`${URL}/v1/houses/me${query}`, {
+	// 		method: "GET",
+	// 		headers: {
+	// 			Authorization: `Bearer ${token}`,
+	// 		},
+	// 	});
 
-		const response = await request.json();
+	// 	const response = await request.json();
 
-		setHouses(response.data || ["nothing"]);
-		setPages((pages) => ({ ...pages, max: response.map.total_pages }));
-	};
+	// 	setHouses(response.data || ["nothing"]);
+	// 	setPages((pages) => ({ ...pages, max: response.map.total_pages }));
+	// };
 
-	const memoPage = useMemo(() => pages, [pages]);
-	const memoSetPage = useCallback(setPages, [setPages]);
+	// const memoPage = useMemo(() => pages, [pages]);
+	// const memoSetPage = useCallback(setPages, [setPages]);
 
-	useEffect(() => {
-		getMyHouses(pages.current, searchValue);
-		// eslint-disable-next-line
-	}, [pages.current, searchValue]);
+	// useEffect(() => {
+	// 	getMyHouses(pages.current, searchValue);
+	// 	// eslint-disable-next-line
+	// }, [pages.current, searchValue]);
 
 	return (
 		<ToBegin>
@@ -79,47 +82,43 @@ const MyProperties = () => {
 					<h1 className="my-properties__title">My properties</h1>
 					<Search setSearchValue={setSearchValue} />
 					<div className="my-properties__wrapper">
-						{!houses.length ? (
-							<LoadingSkeleton />
-						) : houses[0] === "nothing" ? (
-							<PropertiesNotFound />
-						) : (
-							<>
-								<div className="my-properties__titles">
-									<h2 className="my-properties__subtitle">Listing Title</h2>
-									<h2 className="my-properties__subtitle my-properties__subtitle_no-tablet">
-										Category
-									</h2>
-									<h2 className="my-properties__subtitle my-properties__subtitle_no-tablet">Rooms</h2>
-									<h2 className="my-properties__subtitle my-properties__subtitle_no-mobile">
-										Action
-									</h2>
-								</div>
-								<div className="my-properties__list">
-									{houses.map((house) => {
-										const address = [house.country, house.city, house.address].filter(
-											(address) => address
-										);
+						<div className="my-properties__titles">
+							<h2 className="my-properties__subtitle">Listing Title</h2>
+							<h2 className="my-properties__subtitle my-properties__subtitle_no-tablet">
+								Category
+							</h2>
+							<h2 className="my-properties__subtitle my-properties__subtitle_no-tablet">
+								Rooms
+							</h2>
+							<h2 className="my-properties__subtitle my-properties__subtitle_no-mobile">
+								Action
+							</h2>
+						</div>
+						<div className="my-properties__list">
+							{properties.map((house) => {
+								console.log(house);
 
-										return (
-											<MyProperty
-												key={house.id}
-												id={house.id}
-												deleteProperty={deleteProperty}
-												name={house.name}
-												category={house?.category?.name}
-												address={address.join(", ")}
-												image={house.attachments[house.attachments.length - 1].imgPath}
-												salePrice={house.salePrice}
-												price={house.price}
-												room={house.houseDetails.room}
-											/>
-										);
-									})}
-								</div>
-								{!!(pages.max - 1) && <Bullets pages={memoPage} setPages={memoSetPage} />}
-							</>
-						)}
+								const address = [house.country, house.city, house.address].filter(
+									(address) => address
+								);
+
+								return (
+									<MyProperty
+										key={house.id}
+										id={house.id}
+										name={house.name}
+										category={house?.category?.name}
+										address={address.join(", ")}
+										image={
+											house.attachments[house.attachments.length - 1].imgPath
+										}
+										salePrice={house.salePrice}
+										price={house.price}
+										room={house.houseDetails.room}
+									/>
+								);
+							})}
+						</div>
 					</div>
 				</div>
 			</MyPropertiesStyle>

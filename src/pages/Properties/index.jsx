@@ -9,6 +9,7 @@ import ToBegin from "../../components/ToBegin";
 import requestNotFound from "../../assets/img/requestNotFound.png";
 import { useShowAlert } from "../../helpers/functions/functions";
 import CardsLoading from "./CardsLoading";
+import properties from "../../helpers/utils/properties.js";
 
 const URL = process.env.REACT_APP_PUBLIC_URL;
 
@@ -35,7 +36,9 @@ const Properties = () => {
 
 	const getCards = () => {
 		const requestQuery = location.search || `?page=${page.current}&size=15`;
-		const request = fetch(`${URL}/v1/houses/list${requestQuery}`).then((response) => response.json());
+		const request = fetch(`${URL}/v1/houses/list${requestQuery}`).then((response) =>
+			response.json()
+		);
 
 		request.then((data) => {
 			if (location.search) {
@@ -53,7 +56,8 @@ const Properties = () => {
 	};
 
 	useEffect(() => {
-		getCards();
+		// getCards();
+		setCards(properties);
 	}, []);
 
 	/* ------------------------------------ */
@@ -94,13 +98,21 @@ const Properties = () => {
 								cards?.map((card) => {
 									return (
 										<Card
-											to={token ? `/properties/${card.id}` : "/login"}
+											to={`/properties/${card.id}`}
 											key={card.id * Math.random()}
-											address={[card.country, card.region, card.city, card.address]
+											address={[
+												card.country,
+												card.region,
+												card.city,
+												card.address,
+											]
 												.filter((item) => item)
 												.join(",")}
 											title={card.name || "none"}
-											image={card?.attachments[card?.attachments?.length - 1]?.imgPath}
+											image={
+												card?.attachments[card?.attachments?.length - 1]
+													?.imgPath
+											}
 											houseDetails={card.houseDetails}
 											sale={card.salePrice}
 											price={card.price}

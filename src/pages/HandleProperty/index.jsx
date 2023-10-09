@@ -83,14 +83,7 @@ const HandleProperty = (props) => {
 			address: houseInfo?.address,
 			zipCode: houseInfo?.zipCode,
 		};
-	}, [
-		houseInfo?.country,
-		houseInfo?.city,
-		houseInfo?.region,
-		houseInfo?.address,
-		houseInfo?.zipCode,
-		houseInfo?.location,
-	]);
+	}, [houseInfo?.country, houseInfo?.city, houseInfo?.region, houseInfo?.address, houseInfo?.zipCode, houseInfo?.location]);
 
 	const defaultAttachments = useMemo(() => houseInfo?.attachments, [houseInfo?.attachments]);
 
@@ -110,10 +103,7 @@ const HandleProperty = (props) => {
 		};
 	}, [houseInfo?.price, houseInfo?.salePrice, houseInfo?.houseDetails]);
 
-	const defaultAmenities = useMemo(
-		() => ({ ...houseInfo?.componentsDto, ...houseInfo?.homeAmenitiesDto }),
-		[houseInfo?.componentsDto, houseInfo?.homeAmenitiesDto]
-	);
+	const defaultAmenities = useMemo(() => ({ ...houseInfo?.componentsDto, ...houseInfo?.homeAmenitiesDto }), [houseInfo?.componentsDto, houseInfo?.homeAmenitiesDto]);
 
 	/* ------------------------------------ */
 
@@ -140,15 +130,15 @@ const HandleProperty = (props) => {
 	/* ------------------------------------ */
 
 	// Если пользователь не вошел в аккаунт, то посылаем его на главную страницу
-	const navigate = useNavigate();
+	// const navigate = useNavigate();
 
-	useEffect(() => {
-		const token = JSON.parse(localStorage.getItem("login")).authenticationToken;
+	// useEffect(() => {
+	// 	const token = JSON.parse(localStorage.getItem("login")).authenticationToken;
 
-		if (!token) {
-			navigate("/");
-		}
-	});
+	// 	if (!token) {
+	// 		navigate("/");
+	// 	}
+	// });
 
 	/* ------------------------------------ */
 
@@ -201,46 +191,15 @@ const HandleProperty = (props) => {
 			<AddPropertyStyle filesLength={files.length} className="add-property">
 				<div className="add-property__container">
 					<h1 className="add-property__title">Add new property</h1>
-					<Contact
-						status={houseInfo.status}
-						defaultContact={defaultContact}
-						changeHouseInfo={changeHouseInfo}
-					/>
-					<Additional
-						status={houseInfo.status}
-						defaultAdditional={defaultAdditional}
-						changeHouseInfo={changeHouseInfo}
-					/>
-					<Location
-						status={houseInfo.status}
-						defaultLocations={defaultLocations}
-						changeHouseInfo={changeHouseInfo}
-					/>
-					<Media
-						changeHouseInfo={changeHouseInfo}
-						files={files}
-						setFiles={setFiles}
-						openGallery={openGallery}
-						defaultAttachments={defaultAttachments}
-						status={houseInfo.status}
-					/>
-					<Amenities
-						status={houseInfo.status}
-						defaultAmenities={defaultAmenities}
-						changeHouseInfo={changeHouseInfo}
-					/>
+					<Contact status={houseInfo.status} defaultContact={defaultContact} changeHouseInfo={changeHouseInfo} />
+					<Additional status={houseInfo.status} defaultAdditional={defaultAdditional} changeHouseInfo={changeHouseInfo} />
+					<Location status={houseInfo.status} defaultLocations={defaultLocations} changeHouseInfo={changeHouseInfo} />
+					<Media changeHouseInfo={changeHouseInfo} files={files} setFiles={setFiles} openGallery={openGallery} defaultAttachments={defaultAttachments} status={houseInfo.status} />
+					<Amenities status={houseInfo.status} defaultAmenities={defaultAmenities} changeHouseInfo={changeHouseInfo} />
 					{props.add ? <Add houseInfo={houseInfo} /> : <Change houseInfo={houseInfo} />}
 				</div>
 			</AddPropertyStyle>
-			{gallery.opened && (
-				<Gallery
-					index={gallery.index}
-					photos={files}
-					className="add-property__gallery"
-					closeGallery={closeGallery}
-					defaultAttachments={defaultAttachments}
-				/>
-			)}
+			{gallery.opened && <Gallery index={gallery.index} photos={files} className="add-property__gallery" closeGallery={closeGallery} defaultAttachments={defaultAttachments} />}
 		</ToBegin>
 	);
 };

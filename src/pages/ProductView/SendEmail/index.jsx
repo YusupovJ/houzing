@@ -33,7 +33,9 @@ const SendEmail = ({ user }) => {
 
 			<SendEmailStyle ref={emailRef} className={`email${emailVisible ? " open" : ""}`}>
 				<div className="email-wrapper">
-					{!media992 && <X onClick={toggleEmailVisible} className="email__close-modal-window" />}
+					{!media992 && (
+						<X onClick={toggleEmailVisible} className="email__close-modal-window" />
+					)}
 					<div className="email__user">
 						{user !== "pending" ? (
 							<>

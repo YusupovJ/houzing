@@ -24,14 +24,14 @@ import { Autoplay, Navigation, Pagination } from "swiper";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 
-const About = ({ getRandomProperties }) => {
+const About = ({ properties }) => {
 	const media768 = useMatchMedia();
 	const [imgLoaded, handleImgLoad] = useImgLoaded();
 	const [slides, setSlides] = useState([{ attachments: { imgPath: "pending" } }]);
 
 	useEffect(() => {
-		getRandomProperties(setSlides, 3);
-	}, [getRandomProperties]);
+		setSlides(properties);
+	}, [properties]);
 
 	const handleImgError = (e) => {
 		e.target.src = notAvalaible;
@@ -54,19 +54,12 @@ const About = ({ getRandomProperties }) => {
 					className="about__slider"
 				>
 					{slides.map((slide) => {
-						const address = [slide.country, slide.city, slide.region, slide.address]
-							.filter((address) => address)
-							.join(", ");
+						const address = [slide.country, slide.city, slide.region, slide.address].filter((address) => address).join(", ");
 
 						return (
 							<SwiperSlide key={slide.id || 1} className="about__slide-item">
 								<div className="about__bg">
-									<img
-										onLoad={handleImgLoad.bind(this, slide.id)}
-										onError={handleImgError}
-										src={slide?.attachments[0]?.imgPath}
-										alt="BG"
-									/>
+									<img onLoad={handleImgLoad.bind(this, slide.id)} onError={handleImgError} src={slide?.attachments[0]?.imgPath} alt="BG" />
 									<ShowSkeleton imgLoaded={imgLoaded} id={slide?.id} className="about__bg-skeleton" />
 								</div>
 								<div className="about__container">
@@ -74,41 +67,19 @@ const About = ({ getRandomProperties }) => {
 									<p className="about__text">{address || <Skeleton width={200} height={20} />}</p>
 									<ul className="about__ownerships">
 										<li className="about__own">
-											<HouseDetails
-												icon={<Bed />}
-												detail={slide?.houseDetails?.beds}
-												text="Beds"
-											/>
+											<HouseDetails icon={<Bed />} detail={slide?.houseDetails?.beds} text="Beds" />
 										</li>
 										<li className="about__own">
-											<HouseDetails
-												icon={<Bath />}
-												detail={slide?.houseDetails?.bath}
-												text="Baths"
-											/>
+											<HouseDetails icon={<Bath />} detail={slide?.houseDetails?.bath} text="Baths" />
 										</li>
 										<li className="about__own">
-											<HouseDetails
-												icon={<Car />}
-												detail={slide?.houseDetails?.garage}
-												text="Garages"
-											/>
+											<HouseDetails icon={<Car />} detail={slide?.houseDetails?.garage} text="Garages" />
 										</li>
 										<li className="about__own">
-											<HouseDetails
-												icon={<Rule />}
-												detail={slide?.houseDetails?.area}
-												text="Sq Ft"
-											/>
+											<HouseDetails icon={<Rule />} detail={slide?.houseDetails?.area} text="Sq Ft" />
 										</li>
 									</ul>
-									<p className="about__price">
-										{slide?.price !== undefined ? (
-											`$${slide?.price || 0}`
-										) : (
-											<Skeleton width={50} height={20} />
-										)}
-									</p>
+									<p className="about__price">{slide?.price !== undefined ? `$${slide?.price || 0}` : <Skeleton width={50} height={20} />}</p>
 									{slide.id ? (
 										<Link to={`/properties/${slide?.id}`}>
 											<Button className="about__button">

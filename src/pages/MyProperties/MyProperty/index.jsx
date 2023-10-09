@@ -23,10 +23,14 @@ const MyProperty = (props) => {
 					<h3 className="card__title my-properties__subtitle">
 						{setMaxText(props.name, media992 ? 25 : 15)}
 					</h3>
-					<p className="card__address my-properties__text">{setMaxText(props.address, 20)}</p>
+					<p className="card__address my-properties__text">
+						{setMaxText(props.address, 20)}
+					</p>
 					<div className="card__body-row">
 						<div className="card__prices">
-							<p className="card__sale-price my-properties__text">${props.salePrice || 0}</p>
+							<p className="card__sale-price my-properties__text">
+								${props.salePrice || 0}
+							</p>
 							<p className="card__price">${props.price || 0}</p>
 						</div>
 						{!media425 && (
@@ -34,7 +38,7 @@ const MyProperty = (props) => {
 								<Link to={`/change-property/${props.id}`} className="card__button">
 									<Edit />
 								</Link>
-								<button onClick={props?.deleteProperty?.bind(null, props.id)} className="card__button">
+								<button className="card__button">
 									<Trash />
 								</button>
 							</div>
@@ -53,7 +57,10 @@ const MyProperty = (props) => {
 					<Link to={`/change-property/${props.id}`} className="card__button">
 						<Edit />
 					</Link>
-					<button onClick={props?.deleteProperty?.bind(null, props.id)} className="card__button">
+					<button
+						onClick={props?.deleteProperty?.bind(null, props.id)}
+						className="card__button"
+					>
 						<Trash />
 					</button>
 				</div>

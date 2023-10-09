@@ -9,6 +9,8 @@ import CategoryCard from "./CategoryCard";
 import Popular from "./Popular";
 import ToBegin from "../../components/ToBegin";
 import Recommended from "./Recommended";
+import properties from "../../helpers/utils/properties.js";
+import categories from "../../helpers/utils/categories";
 
 /* Главная страница */
 
@@ -39,28 +41,25 @@ const Main = () => {
 
 	// Список категорий
 	useEffect(() => {
-		const request = fetch(`${URL}/v1/categories/list`).then((res) => res.json());
-		request.then((res) => {
-			setCategoryList(res.data || []);
-		});
-	}, []);
+		// const request = fetch(`${URL}/v1/categories/list`).then((res) => res.json());
+		// request.then((res) => {
+		// setCategoryList(res.data || []);
+		// });
+		setCategoryList(categories);
+	}, [categories]);
 
 	return (
 		<ToBegin>
 			<main className="main">
 				{media768 ? <Filter /> : null}
-				<About getRandomProperties={getRandomProperties} />
-				<Recommended getRandomProperties={getRandomProperties} />
+				<About properties={properties} />
+				<Recommended properties={properties} />
 				<ChooseUs />
-				<Products
-					title="Category"
-					text="Nulla quis curabitur velit volutpat auctor bibendum consectetur sit."
-					elemCount={4}
-				>
+				<Products title="Category" text="Nulla quis curabitur velit volutpat auctor bibendum consectetur sit." elemCount={4}>
 					{categoryList.map((item, index) => {
 						return (
 							<SwiperSlide key={item?.id || index}>
-								<CategoryCard status={item?.status} id={item?.id} text={item?.name} />
+								<CategoryCard status={item?.status} id={item?.id} text={item?.text} />
 							</SwiperSlide>
 						);
 					})}

@@ -19,7 +19,7 @@
 		"swiper": "^8.2.3"
 	},
 	"scripts": {
-		"dev": "concurrently \"react-scripts start\" \"gulp\"",
+		"dev": "react-scripts start",
 		"start": "serve -s build",
 		"build": "react-scripts build",
 		"test": "react-scripts test",

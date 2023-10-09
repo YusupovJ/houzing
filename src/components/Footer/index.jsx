@@ -12,21 +12,6 @@ import { ReactComponent as Email } from "../../assets/svg/email.svg";
 const URL = process.env.REACT_APP_PUBLIC_URL;
 
 const Footer = () => {
-	const [categories, setCategories] = useState([]);
-
-	useEffect(() => {
-		const fetchRequest = async () => {
-			const request = await fetch(`${URL}/v1/categories/list`);
-			const response = await request.json();
-
-			if (request.ok) {
-				setCategories(response.data || []);
-			}
-		};
-
-		fetchRequest();
-	}, []);
-
 	return (
 		<FooterStyle className="footer">
 			<div className="footer__container">
@@ -43,7 +28,7 @@ const Footer = () => {
 								</li>
 								<li className="footer__text">
 									<Phone />
-									<a href="tel:998906493166">+998 (90) 649-31-66</a>
+									<a href="tel:998906493166">+998 (90) 726-61-72</a>
 								</li>
 								<li className="footer__text">
 									<Email />
@@ -56,11 +41,10 @@ const Footer = () => {
 						<div className="footer__cell">
 							<h3 className="footer__title">Lists by Category</h3>
 							<ul className="footer__texts">
-								{categories.map((category) => (
-									<li key={category.id} className="footer__text">
-										<Link to={`/properties?category_id=${category.id}`}>{category.name}</Link>
-									</li>
-								))}
+								<li className="footer__text">Villa</li>
+								<li className="footer__text">Penthouse</li>
+								<li className="footer__text">Flat</li>
+								<li className="footer__text">Dacha</li>
 							</ul>
 						</div>
 					</div>

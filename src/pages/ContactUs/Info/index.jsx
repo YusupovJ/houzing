@@ -24,7 +24,7 @@ const Info = () => {
 					<h3 className="contact-us__subtitle">Contact</h3>
 					<p className="contact-us__text">
 						<span>
-							Mobile: <a href="tel:998906493166">+998 (90) 649-31-66</a>
+							Mobile: <a href="tel:998906493166">+998 (90) 726-61-72</a>
 						</span>{" "}
 						<br />
 						Telegram:{" "}

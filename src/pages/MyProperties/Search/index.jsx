@@ -5,7 +5,9 @@ import Input from "../../../components/Input";
 const Search = ({ setSearchValue }) => {
 	const navigate = useNavigate();
 	// eslint-disable-next-line
-	const searchParams = useMemo(() => new URLSearchParams(window.location.search), [window.location.search]);
+	const searchParams = useMemo(() => new URLSearchParams(window.location.search), [
+		window.location.search,
+	]);
 
 	const searchHandler = (e) => {
 		searchParams.set("name", e.target.value);
@@ -18,15 +20,7 @@ const Search = ({ setSearchValue }) => {
 		setSearchValue(e.target.value);
 	};
 
-	return (
-		<Input
-			onChange={searchHandler}
-			className="my-properties__search"
-			id="search"
-			type="text"
-			placeholder="Search"
-		/>
-	);
+	return <Input className="my-properties__search" id="search" type="text" placeholder="Search" />;
 };
 
 export default memo(Search);

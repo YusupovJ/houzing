@@ -8,7 +8,8 @@ import SendEmail from "./SendEmail";
 import Location from "./Location";
 import PropertyDetails from "./PropertyDetails";
 import Features from "./Features";
-import { getProperty } from "../../helpers/functions/functions";
+// import { getProperty } from "../../helpers/functions/functions";
+import properties from "../../helpers/utils/properties.js";
 
 /* Страница товара */
 
@@ -23,7 +24,11 @@ const ProductView = () => {
 		useMemo(() => {
 			return {
 				address: "pending",
-				attachments: [{ imgPath: "pending" }, { imgPath: "pending" }, { imgPath: "pending" }],
+				attachments: [
+					{ imgPath: "pending" },
+					{ imgPath: "pending" },
+					{ imgPath: "pending" },
+				],
 				category: { name: "pending" },
 				city: "pending",
 				country: "pending",
@@ -55,17 +60,17 @@ const ProductView = () => {
 	// Если пользователь вышел из аккаунта в этой странице,
 	// то посылаем его на главную страницу
 
-	useEffect(() => {
-		if (!token) {
-			navigate("/");
-		}
-	}, [navigate, token]);
+	// useEffect(() => {
+	// 	if (!token) {
+	// 		navigate("/");
+	// 	}
+	// }, [navigate, token]);
 
 	/* ------------------------------------ */
 
 	// Запрос
 	useEffect(() => {
-		getProperty(params.id, setHouse);
+		setHouse(properties[0]);
 	}, [params.id]);
 
 	/* ------------------------------------ */
